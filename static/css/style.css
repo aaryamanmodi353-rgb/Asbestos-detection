@@ -31,7 +31,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
-    overflow-y: hidden; /* prevents scrollbars during tilt */
+    overflow-y: auto; /* Allow scrolling for large results! */
     position: relative;
     padding: 20px;
     perspective: 1500px; /* Crucial for 3D interaction */
@@ -241,26 +241,43 @@ header p {
     visibility: visible;
 }
 
-/* Advanced Loading Ring */
+/* Advanced Logo Fill Buffer */
 #loading-section {
     text-align: center;
     padding: 30px 0;
 }
 
-.cyber-spinner {
-    width: 65px;
-    height: 65px;
-    border: 3px solid rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    border-top-color: var(--accent);
-    border-right-color: var(--primary);
+.loading-logo-container {
+    position: relative;
+    width: 72px;
+    height: 72px;
     margin: 0 auto 24px;
-    animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-    box-shadow: 0 0 25px var(--accent-glow);
 }
 
-@keyframes spin {
-    100% { transform: rotate(360deg); }
+.dim-logo {
+    color: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bright-logo {
+    color: var(--accent);
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: inset(100% 0 0 0);
+    animation: fillUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+}
+
+@keyframes fillUp {
+    0% { clip-path: inset(100% 0 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
 }
 
 /* Result Section */

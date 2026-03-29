@@ -7,7 +7,7 @@
     <!-- Modern Font: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Cache buster so your browser loads the new CSS -->
-    <link rel="stylesheet" href="/static/css/style.css?v=3">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
 </head>
 <body>
 
@@ -57,7 +57,20 @@
 
             <!-- Loading State -->
             <section id="loading-section" class="section-wrapper">
-                <div class="cyber-spinner"></div>
+                <div class="loading-logo-container">
+                    <!-- Dim inactive logo -->
+                    <svg class="dim-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <!-- Bright animated overlay logo -->
+                    <svg class="bright-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
                 <h3 style="margin-bottom: 8px;">Processing Sample...</h3>
                 <p style="color: var(--text-muted); font-size: 14px;">Neural network is scanning for hazardous fibers.</p>
             </section>
