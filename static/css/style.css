@@ -33,7 +33,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Allow scrolling for large results! */
     position: relative;
-    padding: 20px;
+    padding: 40px 20px;
     perspective: 1500px; /* Crucial for 3D interaction */
 }
 
@@ -82,6 +82,7 @@ body {
 
 /* Glass Panel - The Core Container */
 .glass-panel {
+    margin: auto; /* Fixes centering behavior ensuring it doesn't clip off the top screen */
     position: relative;
     background: var(--glass-bg);
     backdrop-filter: blur(28px);
