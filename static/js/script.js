@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const glassPanel = document.getElementById("glass-panel");
+    const glare = document.getElementById("glare");
+
     const dropZone = document.getElementById("drop-zone");
     const fileInput = document.getElementById("file-input");
     
+    // Using the new active-class logic for sections
     const uploadSection = document.getElementById("upload-section");
     const loadingSection = document.getElementById("loading-section");
     const resultSection = document.getElementById("result-section");
@@ -9,6 +13,60 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultImage = document.getElementById("result-image");
     const btnReset = document.getElementById("btn-reset");
     const badge = document.getElementById("detection-badge");
+
+    /**
+     * =========================================
+     * 3D Card Tilt & Glare Effect
+     * =========================================
+     */
+    const THRESHOLD = 15; // Max tilt rotation in degrees
+
+    glassPanel.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const { clientWidth, clientHeight, offsetLeft, offsetTop } = glassPanel;
+        const rect = glassPanel.getBoundingClientRect();
+        
+        // Calculate mouse position relative to the element (center is 0,0)
+        const xPos = clientX - rect.left;
+        const yPos = clientY - rect.top;
+
+        // Calculate rotation angles
+        const centerX = clientWidth / 2;
+        const centerY = clientHeight / 2;
+        const rotateX = ((yPos - centerY) / centerY) * -THRESHOLD;
+        const rotateY = ((xPos - centerX) / centerX) * THRESHOLD;
+
+        // Apply 3D Transform
+        glassPanel.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        
+        // Move Glare Highlight
+        glare.style.transform = `translate(${xPos - (clientWidth*1.25)}px, ${yPos - (clientHeight*1.25)}px)`;
+    });
+
+    glassPanel.addEventListener('mouseleave', () => {
+        // Reset transform & glare smoothly when mouse leaves
+        glassPanel.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        glare.style.opacity = '0';
+    });
+
+    glassPanel.addEventListener('mouseenter', () => {
+        glare.style.opacity = '1';
+    });
+
+    /**
+     * =========================================
+     * Logic: View Transitions & API Handling
+     * =========================================
+     */
+    function switchSection(activeSection) {
+        // Remove active class from all
+        uploadSection.classList.remove("active");
+        loadingSection.classList.remove("active");
+        resultSection.classList.remove("active");
+
+        // Add to the chosen one
+        activeSection.classList.add("active");
+    }
 
     // File Drop Handlers
     dropZone.addEventListener("click", () => fileInput.click());
@@ -38,9 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     btnReset.addEventListener("click", () => {
-        resultSection.classList.add("hidden");
-        uploadSection.classList.remove("hidden");
-        fileInput.value = ""; // Reset input
+        switchSection(uploadSection);
+        fileInput.value = ""; // Reset input container
     });
 
     function handleFile(file) {
@@ -49,9 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Show loading
-        uploadSection.classList.add("hidden");
-        loadingSection.classList.remove("hidden");
+        // Smoothly Transition to loading
+        switchSection(loadingSection);
 
         const formData = new FormData();
         formData.append("file", file);
@@ -63,33 +119,31 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error("Server error/Prediction failed.");
+                throw new Error("Server error / API prediction failed.");
             }
             return response.json();
         })
         .then(data => {
-            // Hide loading, show results
-            loadingSection.classList.add("hidden");
-            resultSection.classList.remove("hidden");
-
             // Set Image payload
             resultImage.src = "data:image/jpeg;base64," + data.image;
 
-            // Update badge text based on detections
+            // Update badge text and aesthetic based on detections
             if (data.count > 0) {
-                badge.textContent = `${data.count} Asbestos Component(s) Found!`;
+                badge.textContent = `${data.count} Asbestos Component(s) Found`;
                 badge.className = "badge badge-danger";
             } else {
-                badge.textContent = `Safe - 0 Detections`;
+                badge.textContent = `Safe - Clean Sample`;
                 badge.className = "badge badge-success";
             }
+
+            // Reveal Result UI
+            switchSection(resultSection);
         })
         .catch(err => {
-            console.error(err);
-            alert("An error occurred during inference. Check console.");
-            // Reset UI
-            loadingSection.classList.add("hidden");
-            uploadSection.classList.remove("hidden");
+            console.error("Inference Error:", err);
+            alert("An error occurred during inference. Check connection.");
+            // Revert on failure
+            switchSection(uploadSection);
         });
     }
 });

@@ -3,67 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Asbestos Detection</title>
+    <title>AI Asbestos Detection Pro</title>
     <!-- Modern Font: Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-    <!-- Background blurred animated blobs -->
+    <!-- Atmospheric deep background -->
+    <div class="ambient-bg"></div>
+
+    <!-- Background blurred vibrant blobs -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 
-    <main class="glass-panel">
+    <!-- Main Card Container -->
+    <main class="glass-panel" id="glass-panel">
+        <!-- Interactive Glare Layer -->
+        <div class="glare" id="glare"></div>
+        
         <header>
             <div class="header-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Sleek modern lab icon -->
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" opacity="0.4"/>
                     <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1>Asbestos Detection</h1>
-            <p>Upload a microscopic or material sample image to detect asbestos fibers using deep learning.</p>
+            <h1>Asbestos Analysis</h1>
+            <p>Next-generation deep learning vision model for microscopic and material fiber detection.</p>
         </header>
 
-        <section id="upload-section">
-            <div class="drop-zone" id="drop-zone">
-                <input type="file" id="file-input" accept="image/*" hidden>
-                <div class="drop-zone-content">
-                    <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h3>Drag & Drop</h3>
-                    <p>or <span class="browse-text">browse files</span> from your computer</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Loading State -->
-        <section id="loading-section" class="hidden">
-            <div class="spinner"></div>
-            <p>Analyzing material fibers...</p>
-        </section>
-
-        <!-- Results display -->
-        <section id="result-section" class="hidden">
-            <div class="result-header">
-                <h3>Analysis Complete</h3>
-                <span id="detection-badge" class="badge badge-success">0 Detections</span>
-            </div>
+        <!-- Dynamic Content Area -->
+        <div class="content-area" id="content-area">
             
-            <div class="image-wrapper">
-                <img id="result-image" src="" alt="Detection Results">
-            </div>
+            <!-- Upload State -->
+            <section id="upload-section" class="section-wrapper active">
+                <div class="drop-zone" id="drop-zone">
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                    <div class="drop-zone-content">
+                        <svg class="upload-icon" width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3V15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3>Drag & Drop Sample</h3>
+                        <p>or <span class="browse-text">browse files</span> to run analysis</p>
+                    </div>
+                </div>
+            </section>
 
-            <button class="btn-primary" id="btn-reset">
-                Assess Another Image
-            </button>
-        </section>
+            <!-- Loading State -->
+            <section id="loading-section" class="section-wrapper">
+                <div class="cyber-spinner"></div>
+                <h3 style="margin-bottom: 8px;">Processing Sample...</h3>
+                <p style="color: var(--text-muted); font-size: 14px;">Neural network is scanning for hazardous fibers.</p>
+            </section>
 
+            <!-- Results State -->
+            <section id="result-section" class="section-wrapper">
+                <div class="result-header">
+                    <h3 style="font-size: 20px;">Analysis Complete</h3>
+                    <div id="detection-badge" class="badge badge-success">0 Detections</div>
+                </div>
+                
+                <div class="image-wrapper">
+                    <img id="result-image" src="" alt="Detection Results">
+                </div>
+
+                <button class="btn-primary" id="btn-reset">
+                    <span style="position: relative; z-index: 2;">Assess Another Sample</span>
+                </button>
+            </section>
+
+        </div>
     </main>
 
     <script src="/static/js/script.js"></script>
