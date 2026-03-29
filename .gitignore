@@ -1,0 +1,8 @@
+__pycache__/
+*.pt
+runs/
+train/
+test/
+valid/
+.ipynb_checkpoints/
+nb_code.txt

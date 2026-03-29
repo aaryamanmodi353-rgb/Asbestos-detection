@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['thick-dark-mark', 'thick-light-mark', 'thin-dark-mark', 'thin-light-mark']
+
+roboflow:
+  workspace: roboflow-100
+  project: asbestos
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/roboflow-100/asbestos/dataset/2
