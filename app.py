@@ -5,9 +5,19 @@ import numpy as np
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 from ultralytics import YOLO
 
 app = FastAPI(title="Asbestos Detection API", description="AI-powered asbestos detection")
+
+# Allow CORS for Vercel Frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to your Vercel domain later for security
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Locate the best model or fallback
 MODEL_PATH = os.path.join("runs", "detect", "yolov11_fast_highres2", "weights", "best.pt")
