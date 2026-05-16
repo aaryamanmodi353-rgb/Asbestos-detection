@@ -1,6 +1,6 @@
 // IMPORTANT: When deploying to Vercel, change this to your Render backend URL
 // Example: const API_BASE_URL = "https://your-asbestos-api.onrender.com";
-const API_BASE_URL = ""; // Leave empty for local development
+const API_BASE_URL = "https://asbestos-detection-hclg.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
     const glassPanel = document.getElementById("glass-panel");
