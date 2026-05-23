@@ -83,7 +83,6 @@ This implementation serves as the technical foundation for a broader research in
 
 ```
 
-### Final Prep for Afford Medical:
-If you are submitting this alongside your web applications, ensure your GitHub profile pins **Rent Mojo**, **AI Interviewer**, and **Asbestos Detection** right at the top. This trifecta proves you can build complex backends, modern frontends, and implement advanced mathematical algorithms.
 
-```
+
+
